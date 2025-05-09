@@ -1,14 +1,15 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:health_care_app/models/medical_record.dart';
 import 'package:http/http.dart' as http;
 
 class PermitService {
-  static const String apiKey =
-      'permit_key_evWaCnIsRIpOarPQzfO9D06iz7EZSsKKUtqyCebDkU0VfSVFRsJNCk5fJ4xqE960ErMePTcnSdpHt9tuF2LJj4';
+  static final apiKey = dotenv.env['PERMIT_SDK_TOKEN'];
 
   static const String baseUrl = 'http://172.20.10.2:7766';
 
   static Map<String, String> _getHeaders() {
+    print(apiKey);
     return {
       'Authorization': 'Bearer $apiKey',
       'Content-Type': 'application/json',
