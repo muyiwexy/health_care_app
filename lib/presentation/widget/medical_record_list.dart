@@ -4,7 +4,6 @@ import 'package:health_care_app/services/medical_record_service.dart';
 import 'package:intl/intl.dart';
 
 import 'record_detail_dialog.dart';
-import 'special_access_dialog.dart';
 
 /// Widget for displaying a list of medical records with access controls
 class MedicalRecordsList extends StatelessWidget {
@@ -25,7 +24,6 @@ class MedicalRecordsList extends StatelessWidget {
       itemCount: records.length,
       itemBuilder: (context, index) {
         final record = records[index];
-        final isOldRecord = MedicalRecordService.isOldRecord(record);
 
         // Determine access status display information
         AccessStatus accessStatus;
@@ -34,12 +32,6 @@ class MedicalRecordsList extends StatelessWidget {
             color: Colors.red,
             icon: Icons.lock,
             text: 'Access Denied',
-          );
-        } else if (isOldRecord) {
-          accessStatus = AccessStatus(
-            color: Colors.orange,
-            icon: Icons.timer,
-            text: 'Special Access Required',
           );
         } else {
           accessStatus = AccessStatus(
@@ -86,7 +78,7 @@ class MedicalRecordsList extends StatelessWidget {
               ],
             ),
             isThreeLine: true,
-            onTap: () => _handleRecordTap(context, record, isOldRecord),
+            onTap: () => _handleRecordTap(context, record),
             trailing: const Icon(Icons.chevron_right),
           ),
         );
@@ -96,18 +88,9 @@ class MedicalRecordsList extends StatelessWidget {
 
   /// Handle tapping on a medical record
   /// Shows details if user has access, or handles special access for old records
-  void _handleRecordTap(
-    BuildContext context,
-    MedicalRecord record,
-    bool isOldRecord,
-  ) {
-    if (isOldRecord && record.hasAccess) {
-      // For old records that would normally be accessible, require special access
-      _showSpecialAccessRequest(context, record);
-    } else {
-      // Show record details (or access denied message)
-      _showRecordDetails(context, record);
-    }
+  void _handleRecordTap(BuildContext context, MedicalRecord record) {
+    // Show record details (or access denied message)
+    _showRecordDetails(context, record);
   }
 
   /// Show record details if user has access
@@ -128,26 +111,6 @@ class MedicalRecordsList extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => RecordDetailDialog(record: record),
-    );
-  }
-
-  /// Show dialog to request special access for old records
-  void _showSpecialAccessRequest(BuildContext context, MedicalRecord record) {
-    showDialog(
-      context: context,
-      builder:
-          (context) => SpecialAccessDialog(
-            record: record,
-            userId: userId,
-            userAttributes: userAttributes,
-            onAccessGranted: () {
-              if (context.mounted) {
-                // Show record details after special access is granted
-                Navigator.of(context).pop();
-                _showRecordDetails(context, record);
-              }
-            },
-          ),
     );
   }
 }

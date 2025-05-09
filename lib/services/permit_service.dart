@@ -56,7 +56,6 @@ class PermitService {
     String resourceType,
     MedicalRecord record,
     Map<String, dynamic> userAttributes,
-    Map<String, dynamic> contextAttributes,
   ) async {
     try {
       final url = '$baseUrl/allowed';

@@ -18,11 +18,6 @@ class MedicalRecord {
   });
 
   Map<String, dynamic> toAttributes() {
-    return {
-      'patientId': patientId,
-      'department': department,
-      'sensitivity': sensitivity,
-      'createdAt': createdAt.toIso8601String(),
-    };
+    return {'department': department, 'sensitivity': sensitivity};
   }
 }

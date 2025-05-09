@@ -62,14 +62,6 @@ class MedicalRecordService {
     ];
   }
 
-  /// Determine if a record is considered "old" and requires special access
-  /// Currently defined as older than 1 year
-  static bool isOldRecord(MedicalRecord record) {
-    return record.createdAt.isBefore(
-      DateTime.now().subtract(const Duration(days: 365)),
-    );
-  }
-
   /// Get appropriate color for the sensitivity level of a record
   static Color getSensitivityColor(String sensitivity) {
     switch (sensitivity) {

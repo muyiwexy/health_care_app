@@ -54,7 +54,6 @@ class _HomePageState extends State<HomePage> {
           'medicalRecord',
           record,
           widget.userAttributes,
-          {'accessReason': 'routine check'},
         );
 
         // Mark record with access status
