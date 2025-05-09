@@ -1,0 +1,11 @@
+version: "3"
+services:
+  pdp-service:
+    image: permitio/pdp-v2:latest
+    ports:
+      - "7766:7000"
+    environment:
+      - PDP_API_KEY=permit_key_evWaCnIsRIpOarPQzfO9D06iz7EZSsKKUtqyCebDkU0VfSVFRsJNCk5fJ4xqE960ErMePTcnSdpHt9tuF2LJj4
+      - PDP_DEBUG=True
+    stdin_open: true
+    tty: true
