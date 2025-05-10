@@ -9,7 +9,6 @@ class PermitService {
   static const String baseUrl = 'http://172.20.10.2:7766';
 
   static Map<String, String> _getHeaders() {
-    print(apiKey);
     return {
       'Authorization': 'Bearer $apiKey',
       'Content-Type': 'application/json',
